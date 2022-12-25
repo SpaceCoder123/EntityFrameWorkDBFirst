@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabaseFirstApproachModelStoreContainer" CdmEntityContainer="DatabaseFirstApproachEntities">
+    <EntitySetMapping Name="AREAS">
+      <EntityTypeMapping TypeName="DatabaseFirstApproachModel.AREA">
+        <MappingFragment StoreEntitySet="AREAS">
+          <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+          <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CITIES">
+      <EntityTypeMapping TypeName="DatabaseFirstApproachModel.CITy">
+        <MappingFragment StoreEntitySet="CITIES">
+          <ScalarProperty Name="CityID" ColumnName="CityID" />
+          <ScalarProperty Name="CityName" ColumnName="CityName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

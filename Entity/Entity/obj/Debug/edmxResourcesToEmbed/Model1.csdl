@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseFirstApproachModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AREA">
+    <Key>
+      <PropertyRef Name="AreaId" />
+    </Key>
+    <Property Name="AreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CityID" Type="Int32" />
+    <NavigationProperty Name="CITy" Relationship="Self.FK__AREAS__CityID__38996AB5" FromRole="AREAS" ToRole="CITIES" />
+  </EntityType>
+  <EntityType Name="CITy">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AREAS" Relationship="Self.FK__AREAS__CityID__38996AB5" FromRole="CITIES" ToRole="AREAS" />
+  </EntityType>
+  <Association Name="FK__AREAS__CityID__38996AB5">
+    <End Role="CITIES" Type="Self.CITy" Multiplicity="0..1" />
+    <End Role="AREAS" Type="Self.AREA" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CITIES">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="AREAS">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseFirstApproachEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AREAS" EntityType="Self.AREA" />
+    <EntitySet Name="CITIES" EntityType="Self.CITy" />
+    <AssociationSet Name="FK__AREAS__CityID__38996AB5" Association="Self.FK__AREAS__CityID__38996AB5">
+      <End Role="CITIES" EntitySet="CITIES" />
+      <End Role="AREAS" EntitySet="AREAS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

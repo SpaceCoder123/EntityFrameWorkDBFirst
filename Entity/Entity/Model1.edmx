@@ -1,0 +1,131 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DatabaseFirstApproachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AREAS">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AreaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CityID" Type="int" />
+        </EntityType>
+        <EntityType Name="CITIES">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__AREAS__CityID__38996AB5">
+          <End Role="CITIES" Type="Self.CITIES" Multiplicity="0..1" />
+          <End Role="AREAS" Type="Self.AREAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CITIES">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="AREAS">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseFirstApproachModelStoreContainer">
+          <EntitySet Name="AREAS" EntityType="Self.AREAS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CITIES" EntityType="Self.CITIES" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__AREAS__CityID__38996AB5" Association="Self.FK__AREAS__CityID__38996AB5">
+            <End Role="CITIES" EntitySet="CITIES" />
+            <End Role="AREAS" EntitySet="AREAS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseFirstApproachModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AREA">
+          <Key>
+            <PropertyRef Name="AreaId" />
+          </Key>
+          <Property Name="AreaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AreaName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CityID" Type="Int32" />
+          <NavigationProperty Name="CITy" Relationship="Self.FK__AREAS__CityID__38996AB5" FromRole="AREAS" ToRole="CITIES" />
+        </EntityType>
+        <EntityType Name="CITy">
+          <Key>
+            <PropertyRef Name="CityID" />
+          </Key>
+          <Property Name="CityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CityName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AREAS" Relationship="Self.FK__AREAS__CityID__38996AB5" FromRole="CITIES" ToRole="AREAS" />
+        </EntityType>
+        <Association Name="FK__AREAS__CityID__38996AB5">
+          <End Role="CITIES" Type="Self.CITy" Multiplicity="0..1" />
+          <End Role="AREAS" Type="Self.AREA" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CITIES">
+              <PropertyRef Name="CityID" />
+            </Principal>
+            <Dependent Role="AREAS">
+              <PropertyRef Name="CityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseFirstApproachEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AREAS" EntityType="Self.AREA" />
+          <EntitySet Name="CITIES" EntityType="Self.CITy" />
+          <AssociationSet Name="FK__AREAS__CityID__38996AB5" Association="Self.FK__AREAS__CityID__38996AB5">
+            <End Role="CITIES" EntitySet="CITIES" />
+            <End Role="AREAS" EntitySet="AREAS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseFirstApproachModelStoreContainer" CdmEntityContainer="DatabaseFirstApproachEntities">
+          <EntitySetMapping Name="AREAS">
+            <EntityTypeMapping TypeName="DatabaseFirstApproachModel.AREA">
+              <MappingFragment StoreEntitySet="AREAS">
+                <ScalarProperty Name="AreaId" ColumnName="AreaId" />
+                <ScalarProperty Name="AreaName" ColumnName="AreaName" />
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CITIES">
+            <EntityTypeMapping TypeName="DatabaseFirstApproachModel.CITy">
+              <MappingFragment StoreEntitySet="CITIES">
+                <ScalarProperty Name="CityID" ColumnName="CityID" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

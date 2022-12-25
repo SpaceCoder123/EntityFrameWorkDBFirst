@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DatabaseFirstApproachModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AREAS">
+    <Key>
+      <PropertyRef Name="AreaId" />
+    </Key>
+    <Property Name="AreaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AreaName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CityID" Type="int" />
+  </EntityType>
+  <EntityType Name="CITIES">
+    <Key>
+      <PropertyRef Name="CityID" />
+    </Key>
+    <Property Name="CityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CityName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__AREAS__CityID__38996AB5">
+    <End Role="CITIES" Type="Self.CITIES" Multiplicity="0..1" />
+    <End Role="AREAS" Type="Self.AREAS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CITIES">
+        <PropertyRef Name="CityID" />
+      </Principal>
+      <Dependent Role="AREAS">
+        <PropertyRef Name="CityID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DatabaseFirstApproachModelStoreContainer">
+    <EntitySet Name="AREAS" EntityType="Self.AREAS" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CITIES" EntityType="Self.CITIES" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__AREAS__CityID__38996AB5" Association="Self.FK__AREAS__CityID__38996AB5">
+      <End Role="CITIES" EntitySet="CITIES" />
+      <End Role="AREAS" EntitySet="AREAS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
